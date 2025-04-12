@@ -1,0 +1,36 @@
+{
+    "name": "structuraphp/structura-phpunit",
+    "description": "Architectural testing for PHP with phpunit",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "StructuraPhp\\StructuraPhpunit\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "StructuraPhp\\StructuraPhpunit\\Tests\\": "tests"
+        }
+    },
+    "require": {
+        "php": "^8.2|^8.3|^8.4",
+        "phpunit/phpunit": "^11.0|^12.0",
+        "structuraphp/structura": "dev-main"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.75",
+        "phpstan/phpstan": "^2.1",
+        "phpstan/phpstan-strict-rules": "^2.0",
+        "rector/rector": "^2.0",
+        "shipmonk/composer-dependency-analyser": "^1.8"
+    },
+    "config": {
+        "sort-packages": true,
+        "optimize-autoloader": true,
+        "classmap-authoritative": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": false
+        }
+    }
+}

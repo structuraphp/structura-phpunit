@@ -1,0 +1,14 @@
+includes:
+    - vendor/phpstan/phpstan-strict-rules/rules.neon
+
+parameters:
+    strictRules:
+        booleansInConditions: false
+
+    level: max
+
+    paths:
+        - src
+        - tests
+
+    tmpDir: build/phpStan
