@@ -6,40 +6,57 @@ declare(strict_types=1);
  * @see https://mlocati.github.io/php-cs-fixer-configurator
  */
 
+use PhpCsFixer\Config;
+use PhpCsFixer\Finder;
 use PhpCsFixer\Runner\Parallel\ParallelConfig;
 
-$finder = PhpCsFixer\Finder::create()
-    ->exclude('build')
-    ->in(__DIR__);
+$finder = Finder::create()
+    ->exclude('storage')
+    ->in(__DIR__)
+    ->append([
+        __DIR__ . '/rector.php',
+        __FILE__,
+    ]);
 
-$config = new PhpCsFixer\Config();
+$config = new Config();
 
 return $config
-    ->setCacheFile(__DIR__ . '/build/phpCsFixer/.php-cs-fixer.cache')
+    ->setCacheFile(__DIR__ . '/storage/tmp/php-cs-fixer/.php-cs-fixer.cache')
     ->setRules([
-        '@PER-CS2.0' => true,
-        'array_syntax' => [
-            'syntax' => 'short',
-        ],
-        'cast_spaces' => ['space' => 'single'],
+        '@PhpCsFixer' => true,
+        // Added rules
         'declare_strict_types' => true,
+        'phpdoc_line_span' => ['property' => 'single', 'const' => 'single'],
+
+        // Override @PhpCsFixer
+        'concat_space' => ['spacing' => 'one'],
         'global_namespace_import' => [
             'import_constants' => false,
             'import_functions' => false,
         ],
         'heredoc_to_nowdoc' => false,
         'increment_style' => ['style' => 'post'],
-        'native_function_invocation' => ['strict' => false],
-        'no_superfluous_phpdoc_tags' => ['allow_mixed' => true],
-        'no_trailing_comma_in_singleline' => true,
-        'no_unreachable_default_argument_value' => false,
-        'ordered_imports' => ['sort_algorithm' => 'alpha'],
-        'phpdoc_line_span' => [
-            'property' => 'single',
-            'const' => 'single',
+        'multiline_whitespace_before_semicolons' => ['strategy' => 'no_multi_line'],
+        'ordered_imports' => [
+            'imports_order' => [
+                'class',
+                'function',
+                'const',
+            ],
+            'sort_algorithm' => 'alpha',
         ],
-        'phpdoc_summary' => false,
-        'single_line_throw' => false,
+        'php_unit_internal_class' => false,
+        'phpdoc_to_comment' => ['ignored_tags' => ['var']],
+        'phpdoc_align' => ['align' => 'left'],
+        'trailing_comma_in_multiline' => [
+            'elements' => [
+                'arguments',
+                'array_destructuring',
+                'arrays',
+                'match',
+                'parameters',
+            ],
+        ],
         'yoda_style' => false,
     ])
     ->setParallelConfig(new ParallelConfig(6, 20))

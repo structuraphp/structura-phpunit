@@ -1,15 +1,20 @@
 # Structura PHPUnit
 
-[PHPUnit](https://phpunit.de/index.html) extension for Structura
+[![License](https://img.shields.io/github/license/structuraphp/structura-phpunit.svg)](https://github.com/structuraphp/structura-phpunit/blob/main/LICENSE "LICENSE")
+[![PHP from Packagist](https://img.shields.io/badge/PHP-%3E%3D8.2-%238892bf)](/README.md#php-version "PHP version 8.2 minimum")
+
+[PHPUnit](https://phpunit.de/index.html) extension for [Structura](https://github.com/structuraphp/structura).
+
+Full documentation is available at **[structuraphp.github.io/structura](https://structuraphp.github.io/structura)**.
 
 ## Requirements
 
 ### PHP version
 
-| PHPUnit Version | PHP Version     | Structura 0.x |
-|-----------------|-----------------|---------------|
-| <= 10.x         | <= 8.1          | ✗ Unsupported |
-| 11.x / 12.x     | 8.2 / 8.3 / 8.4 | ✓ Supported   |
+| PHPUnit Version    | PHP Version           | Structura ^0.7 |
+|--------------------|-----------------------|----------------|
+| <= 10.x            | <= 8.1                | ✗ Unsupported  |
+| 11.x / 12.x / 13.x | 8.2 / 8.3 / 8.4 / 8.5 | ✓ Supported    |
 
 ## Installation
 
@@ -34,7 +39,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Resources\Json\JsonResource;
 use PHPUnit\Framework\TestCase;
-use Structura\Expr;
+use StructuraPhp\Structura\Expr;
+use StructuraPhp\Structura\ExprScript;
 use StructuraPhp\StructuraPhpunit\ArchitectureAsserts;
 
 final class ArchitectureHttpTest extends TestCase
