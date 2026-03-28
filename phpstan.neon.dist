@@ -1,4 +1,7 @@
 includes:
+    - phar://vendor/phpstan/phpstan/phpstan.phar/conf/bleedingEdge.neon
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+    - vendor/phpstan/phpstan-phpunit/rules.neon
     - vendor/phpstan/phpstan-strict-rules/rules.neon
 
 parameters:
@@ -11,4 +14,4 @@ parameters:
         - src
         - tests
 
-    tmpDir: build/phpStan
+    tmpDir: storage/tmp/phpstan

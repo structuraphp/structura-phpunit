@@ -1,4 +1,7 @@
 # directories
 .idea
-/build/
+/storage/
 /vendor/
+
+# files
+composer.lock

@@ -6,7 +6,7 @@
          colors="true"
          stopOnFailure="false"
          xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/12.0/phpunit.xsd"
-         cacheDirectory="build/phpUnit"
+         cacheDirectory="storage/tmp/phpunit"
 >
     <testsuites>
         <testsuite name="unit">

@@ -1,6 +1,9 @@
-name: PHP Composer
+name: PHP Tests
 
-on: [push, pull_request]
+on: [push]
+
+env:
+  LATEST_PHP_VERSION: '8.5'
 
 jobs:
   build:
@@ -8,18 +11,24 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-version: [8.2, 8.3, 8.4]
+        php-version: [8.2, 8.3, 8.4, 8.5]
 
     steps:
     - name: Pull repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-version }}
+        tools: composer
 
     - name: Validate composer.json and composer.lock
       run: composer validate --strict
 
     - name: Cache Composer packages
       id: composer-cache
-      uses: actions/cache@v3
+      uses: actions/cache@v5
       with:
         path: vendor
         key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
@@ -30,16 +39,20 @@ jobs:
       run: composer install --prefer-dist --no-progress
 
     - name: Dependencies tests
+      if: matrix.php-version == env.LATEST_PHP_VERSION
       run: vendor/bin/composer-dependency-analyser
 
     - name: Coding standards
+      if: matrix.php-version == env.LATEST_PHP_VERSION
       run: vendor/bin/php-cs-fixer fix --ansi --dry-run --using-cache=no -v --diff
 
     - name: Static analysis
+      if: matrix.php-version == env.LATEST_PHP_VERSION
       run: vendor/bin/phpstan --memory-limit=1G analyse
 
-    - name: Unit tests
-      run: vendor/bin/phpunit --testdox
-
     - name: Refactoring
+      if: matrix.php-version == env.LATEST_PHP_VERSION
       run: vendor/bin/rector --dry-run
+
+    - name: Unit tests
+      run: vendor/bin/phpunit --testdox --random-order
